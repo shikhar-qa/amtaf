@@ -1,0 +1,10 @@
+services:
+  device:
+    build: ./demo/device
+    ports:
+      - "8080:8080"   # management console + REST API
+      - "2222:22"     # SSH
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"

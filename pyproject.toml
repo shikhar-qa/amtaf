@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "amtaf"
+version = "0.1.0"
+description = "Agentic Multi-Layer Test Automation Framework (proof of concept)"
+requires-python = ">=3.10"
+dependencies = [
+  "pydantic>=2",
+  "requests",
+  "paramiko",
+  "redis",
+  "pytest",
+  "pytest-bdd",
+  "allure-pytest",
+]
+
+[project.optional-dependencies]
+gui = ["playwright"]
+llm = ["litellm"]
+dev = [
+  "black", "flake8", "mypy", "fakeredis[lua]",
+  "fastapi", "httpx", "uvicorn", "python-multipart",
+  "types-requests", "types-paramiko",
+]
+
+[project.scripts]
+amtaf = "amtaf.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["amtaf*"]
+
+[tool.black]
+line-length = 88
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests/unit"]
+filterwarnings = ["ignore::pytest.PytestUnknownMarkWarning"]

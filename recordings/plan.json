@@ -1,0 +1,25 @@
+{
+  "intent": "Set the syslog server to 10.0.0.5 in the management UI and verify it was applied on the device within 10 seconds.",
+  "preconditions": ["Management console reachable", "Device reachable over SSH"],
+  "steps": [
+    {
+      "id": "s1", "layer": "GUI", "keyword": "Given",
+      "action": "Log in to the management console",
+      "gherkin": "I am logged in to the management console",
+      "expected": "Settings page is visible", "depends_on": []
+    },
+    {
+      "id": "s2", "layer": "GUI", "keyword": "When",
+      "action": "Set the syslog server to 10.0.0.5 in the UI",
+      "gherkin": "I set the syslog server to 10.0.0.5 in the management UI",
+      "expected": "UI shows Saved", "depends_on": ["s1"]
+    },
+    {
+      "id": "s3", "layer": "HARDWARE_CLI", "keyword": "Then",
+      "action": "Verify the device config contains the new value",
+      "gherkin": "the device config file has syslog server set to 10.0.0.5 within 10 seconds",
+      "expected": "syslog_server=10.0.0.5 in /etc/device.conf",
+      "sla_seconds": 10, "sla_source": "explicit", "depends_on": ["s2"]
+    }
+  ]
+}

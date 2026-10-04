@@ -1,0 +1,11 @@
+{
+  "failing_layer": "HARDWARE_CLI",
+  "summary": "The management UI reported Saved, but /etc/device.conf never received the new syslog_server value. The device log records a persist failure tagged with this run id, so the fault is in the device's persistence path, not in the GUI.",
+  "confidence": "medium",
+  "evidence": [
+    "GUI step passed: the status banner showed Saved",
+    "device config: syslog_server does not match the requested value",
+    "device log: WARN persist failed for key=syslog_server with this run_id"
+  ],
+  "suggested_next_step": "Inspect the device's config write path and filesystem state."
+}
